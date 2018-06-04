@@ -5,7 +5,7 @@
 **Потренироваться можно тут**
 - [learngitbranching](https://learngitbranching.js.org/)
 
-#GIT инструкция для выполнения дз
+**GIT инструкция для выполнения дз**
 
 Для сдачи задания на проверку нужно сделать
 [fork](https://help.github.com/articles/fork-a-repo/) 
