@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TMS JSB - 4 занятие</title>
+  <link rel="stylesheet" href="https://rawgit.com/mikemiles86/reveal-line-numbers/master/line-numbers.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/vs.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/white.css" id="theme">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Занятие 4</h1>
+      </section>
+
+      <section>
+        <section>
+          <h3>Вопросы по прошлому занятию</h3>
+        </section>
+        <section>
+          <ul>
+            <li class="fragment">Виды циклов. Отличия. Применение</li>
+            <li class="fragment">Что такое массив. Способы работы с массивами. Методы массивов</li>
+            <li class="fragment">Что такое функция. Отличия между function declaration и function expression</li>
+            <li class="fragment">Локальные и глобальные переменные. Области видимости.</li>
+            <li class="fragment">Ключевое слово arguments</li>
+            <li class="fragment">Что есть замыкания, где можно использовать</li>
+            <li class="fragment">Функции высшего порядка</li>
+          </ul>
+        </section>
+        <section>
+          ВОПРОСЫ
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h3>План занятия</h3>
+        </section>
+        <section>
+          <ul>
+            <li class="fragment">Что есть объекты</li>
+            <li class="fragment">Методы объектов, this</li>
+            <li class="fragment">Дескрипторы свойств. Геттеры и сеттеры</li>
+            <li class="fragment">Функции конструкторы. Оператор new</li>
+            <li class="fragment">Методы привязки контекста. Потеря контекста</li>
+            <li class="fragment">Краткий вводный курс в git</li>
+          </ul>
+        </section>
+        <section>
+          <h3>ВОПРОСЫ</h3>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h3>Что есть объекты</h3>
+          <ul>
+            <li class="fragment">Ассоциативные массивы (хранилище значений по ключу)</li>
+            <li class="fragment">Массив - это объект?</li>
+            <li class="fragment">Некая сущность, со своими методами, позволяющими изменять ее состояние (свойства, внутренние переменные)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>ВОПРОСЫ</h3>
+        </section>
+        <section>
+          <h3>Повторение. Способы создать объект</h3>
+        </section>
+        <section>
+          <pre><code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+            //пустой объект
+            var myObject = {};
+
+            var myObjet = new Object();
+
+            var myObject = Object.create();
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+            //со свойствами
+            var student = {
+              name: 'Alex',
+              age: 18
+            };
+
+            var student = {};
+            student['name'] = 'Alex';
+            student.age = 18;
+          </code></pre>
+        </section>
+        <section>
+          <h3>
+            ВОПРОСЫ
+          </h3>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h3>Методы объектов, this</h3>
+        </section>
+
+        <section>
+          <div>Свойством объекта может быть функция. Такая функция называется методом объекта.</div>
+        </section>
+        <section>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              var user = {};
+              user.sayHi = function() {
+                console.log('hi there');
+              }
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <div>Каждая функция имеет доступ к объекту this. this может быть любым объектом, <em>undefined</em> (при <em>use strict</em>)
+            или <em>window</em>. При вызове через точку метода объекта мы можем быть уверены,
+            что this там является этим самым объектом</div>
+        </section>
+
+        <section>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              function() checkThis{
+                console.log(this); //undefined или window
+              }
+
+              var user = {
+                checkThis: function(){
+                  console.log(this) //user
+                }
+              };
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          Предвижу вопрос: что такое <em>'use strict'</em>?
+        </section>
+
+        <section>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              //т.н. "строгий режим"
+              'use strict'; // в начале скрипта
+
+              function(){
+                'use strict'; //в начале функции
+              }
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h3>На что влияет</h3>
+          <ul>
+            <li class="fragment">Не допускает дублирование ключей в объекте</li>
+            <li class="fragment">Требует всегда явного объявления переменных через var</li>
+            <li class="fragment">Запрещаются дублирования аргументов</li>
+            <li class="fragment">Происходит заморозка <b>arguments</b></li>
+            <li class="fragment">Более подробно:
+              <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Strict_mode/Transitioning_to_strict_mode">https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Strict_mode/Transitioning_to_strict_mode</a>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          При вызове через точку мы можем получить доступ из метода к свойству объекта через <em>this.method()</em>
+        </section>
+
+        <section>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              var student = {};
+              student.name = 'Alex';
+              student.sayHi = function(){
+                console.log("Hi, i'm " + this.name);
+              };
+            </code>
+          </pre>
+      </section>
+
+      <section>
+        ВОПРОСЫ
+      </section>
+
+      <section>
+        <h3>Практика</h3>
+        <div>
+          Создать 2 объекта со свойством age и разными значениями этого свойства.
+          Написать функцию, которая в зависимости от значения age выводит сообщения "привет, мне <b>age</b> лет",
+          "Мне <b>age</b> лет, здравствуйте"
+        </div>
+      </section>
+
+      </section>
+
+
+      <section>
+        <section>
+          <h2>Дескрипторы свойств. Геттеры и сеттеры</h2>
+        </section>
+
+        <section>
+          Метод для управления свойствами – Object.defineProperty
+        </section>
+
+        <section>
+          <h4>Синтаксис</h4>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              Object.defineProperty(user, "name",
+                { value: "Вася", configurable: true, writable: true, enumerable: true }
+              );
+            </code>
+          </pre>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h4>Параметры дескриптора 1</h4>
+
+          <ul>
+            <li class="fragment"><em>enumerable</em> – если true, то свойство просматривается в цикле <em>for..in</em> и методе <em>Object.keys()</em>. По умолчанию <em>false</em>.</li>
+            <li class="fragment"><em>get</em> – функция, которая возвращает значение свойства. По умолчанию <em>undefined</em>.</li>
+            <li class="fragment"><em>set</em> – функция, которая записывает значение свойства. По умолчанию <em>undefined</em>.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h4>Параметры дескриптора 2</h4>
+
+          <ul>
+            <li class="fragment"><em>value</em> – значение свойства, по умолчанию <em>undefined</em></li>
+            <li class="fragment"><em>writable</em> – значение свойства можно менять, если <em>true</em>. По умолчанию <em>false</em>.</li>
+            <li class="fragment"><em>configurable</em> – если <em>true</em>, то свойство можно удалять, а также менять его в дальнейшем при помощи новых вызовов <em>defineProperty</em>. По умолчанию <em>false</em>.</li>
+          </ul>
+        </section>
+
+        <section>
+          Геттеры и сеттеры - свойства-функции, позволяющие устанавливать и получать значения свойств объектов
+        </section>
+      </section>
+
+      <section>
+        <h3>ВОПРОСЫ</h3>
+      </section>
+
+      <section>
+        <section>
+          <h2>Практика</h2>
+        </section>
+
+        <section>
+          Определить свойство-геттер fullname объекта со свойствами firstname и lastname
+        </section>
+
+        <section>
+          Определить свойство-cеттер birthDate и свойство геттер age (форматированый возраст исходя из даты рождения) объекта user
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Функции конструкторы. Оператор new</h2>
+        </section>
+
+        <section>
+          Любую функцию можно вызвать через new. При этом независимо от того, какой в ней return, она вернет объект,
+          а через this можно устанавливать свойства этого объекта.
+        </section>
+
+        <section>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              function User(){
+                this.name = 'Vasya';
+              }
+
+              var userVasya = new User();
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          Функция может принимать аргументы, как и любая другая, и они могут быть использованы для инициализации значений
+        </section>
+
+        <section>
+          Если указать в return примитивный тип, то вернятся this, если же указать объект, то вернется этот самый объект вместо this
+        </section>
+
+        <section>
+          <h3>ВОПРОСЫ</h3>
+        </section>
+
+        <section>
+          <section>
+            <h2>Практика</h2>
+          </section>
+
+          <section>
+            <div>Написать функцию-конструктор для объекта Task. Функция должна принимать параметр - текст задачи. </div>
+            <div>Так же у объекта должна быть дата создания (через new Date()),
+              геттер который выводит время существования задачи в зависимости от даты создания,
+              и свойство выполнено/не выполнено</div>
+          </section>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>
+            Методы привязки контекста. Потеря контекста
+          </h2>
+        </section>
+
+        <section>
+          Любую функцию можно вызвать с любым контекстом ( то есть this), используя операторы call, apply и bind
+        </section>
+
+        <section>
+          <div>call можно вызвать через точку как метод функции,
+            принимает этот метод новый контекст и аргументы функции через запятую</div>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              var user = {
+                name: 'Vasya';
+              };
+
+              function sayName(){
+                console.log(this.name);
+              }
+
+              sayName.call(user);
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <div>apply делает то же самое, с одним отличием - он принимает массив аргументов вторым параметром</div>
+        </section>
+
+        <section>
+          <div>bind возвращает новую функцию с привязанным контекстом</div>
+        </section>
+
+        <section>
+          <h3>ВОПРОСЫ</h3>
+        </section>
+
+        <section>
+          <h3>ПРАКТИКА</h3>
+          <p>
+            Написать функцию суммирования параметров, переданных в функцию, используя метод массива reduce
+            и один из вышеперечисленных методов привязки контекста
+          </p>
+        </section>
+      </section>
+    </section>
+
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/javascript.min.js"></script>
+  <script>
+    Reveal.addEventListener('slidechanged', function (event) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      if (event.currentSlide.querySelector('.fragment')) {
+        document.body.classList.add('has-fragments');
+      } else {
+        document.body.classList.remove('has-fragments');
+      }
+    });
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      // Display a presentation progress bar
+      progress: true,
+      // Set default timing of 2 minutes per slide
+      defaultTiming: 120,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Push each slide change to the browser history
+      history: true,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Change the presentation direction to be RTL
+      rtl: false,
+      // Randomizes the order of slides each time the presentation loads
+      shuffle: false,
+      // Turns fragments on and off globally
+      fragments: true,
+      // Flags if the presentation is running in an embedded mode,
+      // i.e. contained within a limited portion of the screen
+      embedded: false,
+      // Flags if we should show a help overlay when the questionmark
+      // key is pressed
+      help: true,
+      // Flags if speaker notes should be visible to all viewers
+      showNotes: true,
+      // Global override for autolaying embedded media (video/audio/iframe)
+      // - null: Media will only autoplay if data-autoplay is present
+      // - true: All media will autoplay, regardless of individual setting
+      // - false: No media will autoplay, regardless of individual setting
+      autoPlayMedia: null,
+      // Number of milliseconds between automatically proceeding to the
+      // next slide, disabled when set to 0, this value can be overwritten
+      // by using a data-autoslide attribute on your slides
+      autoSlide: 0,
+      // Stop auto-sliding after user input
+      autoSlideStoppable: true,
+      // Use this method for navigation when auto-sliding
+      autoSlideMethod: Reveal.navigateNext,
+      // Enable slide navigation via mouse wheel
+      mouseWheel: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Opens links in an iframe preview overlay
+      previewLinks: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition speed
+      transitionSpeed: 'default', // default/fast/slow
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+      // Number of slides away from the current that are visible
+      viewDistance: 3,
+      // Parallax background image
+      parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+      // Parallax background size
+      parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+      // Number of pixels to move the parallax background per slide
+      // - Calculated automatically unless specified
+      // - Set to 0 to disable movement along an axis
+      parallaxBackgroundHorizontal: null,
+      parallaxBackgroundVertical: null,
+      // The display mode that will be used to show slides
+      display: 'block',
+      dependencies: [
+        // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/classList.js',
+          condition: function () {
+            return !document.body.classList;
+          }
+        },
+        // Interpret Markdown in <section> elements
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/marked.js',
+          condition: function () {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/markdown.js',
+          condition: function () {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        // Syntax highlight for <code> elements
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
+          async: true,
+          callback: function () {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        // Zoom in and out with Alt+click
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/zoom-js/zoom.js',
+          async: true
+        },
+        // Speaker notes
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/notes/notes.js',
+          async: true
+        },
+        // MathJax
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/math/math.js',
+          async: true
+        },
+        {
+          src: 'https://rawgit.com/mikemiles86/reveal-line-numbers/master/line-numbers.js'
+        },
+      ]
+    });
+    Reveal.configure({
+      slideNumber: 'c/t'
+    });
+
+  </script>
+</body>
+
+</html>
