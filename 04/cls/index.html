@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TMS JSB - 4 занятие</title>
+  <link rel="stylesheet" href="https://rawgit.com/mikemiles86/reveal-line-numbers/master/line-numbers.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/vs.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/theme/white.css" id="theme">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Занятие 4</h1>
+      </section>
+
+      <section>
+        <section>
+          <h3>Вопросы по прошлому занятию</h3>
+        </section>
+        <section>
+          <ul>
+            <li class="fragment">Что такое объект</li>
+            <li class="fragment">Что такое метод объекта</li>
+            <li class="fragment">Ключевое слово this. Что это. </li>
+            <li class="fragment">Контекст. Как потерять, как найти.</li>
+            <li class="fragment">Object.defineProperty, зачем, синтаксис</li>
+            <li class="fragment">Что такое геттеры и сеттеры</li>
+            <li class="fragment">call, apply, bind</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>
+            ВОПРОСЫ
+          </h3>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h3>План занятия</h3>
+        </section>
+        <section>
+          <ul>
+            <li class="fragment">DOM</li>
+            <li class="fragment">Типы узлов</li>
+            <li class="fragment">Навигация по DOM</li>
+            <li class="fragment">Поиск в DOM</li>
+            <li class="fragment">Атрибуты</li>
+            <li class="fragment">Введение в события</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>ВОПРОСЫ</h3>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h3>DOM</h3>
+        </section>
+        <section>
+          Основным инструментом работы и динамических изменений на странице является
+          DOM (Document Object Model) – объектная модель, используемая для XML/HTML-документов.
+        </section>
+        <section>
+          Согласно DOM-модели, документ является иерархией, деревом. Каждый HTML-тег образует узел дерева с типом «элемент».
+          Вложенные в него теги становятся дочерними узлами. Для представления текста создаются узлы с типом «текст».
+        </section>
+        <section>
+          <b>DOM – это представление документа в виде дерева объектов, доступное для изменения через JavaScript.</b>
+        </section>
+        <section>
+          <h3>ВОПРОСЫ</h3>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h3>Типы узлов</h3>
+        </section>
+
+        <section>
+          <ul>
+            <li class="fragment">Тэги (элементы)</li>
+            <li class="fragment">Текстовые узлы</li>
+            <li class="fragment">Комментарии</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>ВОПРОСЫ</h3>
+        </section>
+
+        <section>
+          <h3>Практика</h3>
+          <div>
+            Создать все три типа элементов, найти через инструменты разработчика.
+          </div>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Навигация</h2>
+        </section>
+
+        <section>
+          Доступ к DOM начинается с объекта document. Из него можно добраться до любых узлов. Ниже лежат объекты html (documentElement),
+          и body.
+        </section>
+
+        <section>
+          <h3>Методы</h3>
+          <ol>
+            <li class="fragment">childNodes</li>
+            <li class="fragment">firstChild</li>
+            <li class="fragment">lastChild</li>
+            <li class="fragment">previousSibling</li>
+            <li class="fragment">nextSibling</li>
+            <li class="fragment">parentNode</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3>Еще методы. Только элементы.</h3>
+          <ol>
+            <li class="fragment">children </li>
+            <li class="fragment">firstElementChild</li>
+            <li class="fragment">lastElementChild </li>
+            <li class="fragment">previousElementSibling</li>
+            <li class="fragment">nextElementSibling </li>
+            <li class="fragment">parentElement</li>
+          </ol>
+        </section>
+
+        <section><h3>ВОПРОСЫ</h3></section>
+
+        <section>
+          <h3>ПРАКТИКА</h3>
+
+          <p>
+            1. Сверстать список с разным текстом внутри. Собрать весь текст из списка. Отсортировать по алфавиту.
+          </p>
+
+          <p>
+            2. Покрасить каждый второй элемент списка в красный цвет.
+          </p>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h3>Поиск</h3>
+          <p>getElement*, querySelector*, closest, matches</p>
+        </section>
+
+        <section>
+          <h3>ВОПРОСЫ</h3>
+        </section>
+
+        <section>
+          <h3>ПРАКТИКА</h3>
+          <p>Найти на странице элемент с атрибутом data-name="elementName"</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h3>Атрибуты и свойства</h3>
+        </section>
+
+        <section>
+          <p>HTML-атрибуты и DOM-свойства обычно, но не всегда соответствуют друг другу</p>
+
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              //пример свойства
+              var el = document.getElementById('id1');
+              console.log(el.id); //id1
+            </code>
+          </pre>
+        </section>
+        
+        <section>
+          <p>Для атрибутов есть методы</p>
+
+          <ol>
+            <li class="fragment">elem.hasAttribute(name) – проверяет наличие атрибута</li>
+            <li class="fragment">elem.getAttribute(name) – получает значение атрибута</li>
+            <li class="fragment">elem.setAttribute(name, value) – устанавливает атрибут</li>
+            <li class="fragment">elem.removeAttribute(name) – удаляет атрибут</li>
+          </ol>
+        </section>
+
+        <section>
+          <p>В отличие от свойств, атрибуты:</p>
+          <ul>
+            <li>Всегда являются строками
+            </li>
+            <li>Их имя нечувствительно к регистру
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <p>
+            Изменение некоторых свойств обновляет атрибут. Но это скорее исключение, чем правило.
+            Чаще синхронизация – односторонняя: свойство зависит от атрибута, но не наоборот.
+          </p>
+        </section>
+
+        <section>
+          <h4>Работа с классами:</h4>
+          <p>В виде строки: className</p>
+          <p>В виде объекта: classList</p>
+        </section>
+
+        <section>
+          <section>
+            <h3>Нестандартные атрибуты</h3>
+          </section>
+          <section>
+            <p>
+              У каждого элемента есть некоторый набор стандартных свойств, например для <b>A</b> это будут href, name, а для <b>IMG</b>это будут src, alt, и так далее.
+              Точный набор свойств описан в стандарте, обычно мы более-менее представляем, если пользуемся HTML, какие свойства могут быть, а какие – нет.
+              Для нестандартных атрибутов DOM-свойство не создаётся.
+            </p>
+          </section>
+
+          <section>
+            <p>Нестандартные атрибуты могу использоваться для css и js, работать из js с ними проще.</p>
+            <p>
+              Стандарт HTML5 специально разрешает атрибуты data-* и резервирует их для пользовательских данных.
+              При этом во всех браузерах, кроме IE10-, к таким атрибутам можно обратиться не только как к атрибутам,
+              но и как к свойствам, при помощи специального свойства dataset
+            </p>
+          </section>
+        </section>
+      </section>
+
+      <section>
+        <h3>ВОПРОСЫ</h3>
+      </section>
+
+      <section>
+        <h3>ПРАКТИКА</h3>
+        <p>
+          С помощью метода appendChild и innerText отрисовать задачи, сгенерированные с помощью конструктора, который делали дома.
+          Установить data-id атрибут. Покрасить задачу с определенным id в красный цвет после отрисовки всех задач.
+        </p>
+      </section>
+
+      <section>
+        <section><h2>СОБЫТИЯ</h2></section>
+
+        <section>
+          <p>Для реакции на действия посетителя и внутреннего взаимодействия скриптов существуют события.
+            Событие – это сигнал от браузера о том, что что-то произошло.</p>
+        </section>
+
+        <section>Примеры событий - <em>click</em>, <em>mouseover</em>, <em>mousewheel</em>, <em>keydown</em></section>
+
+        <section>
+          Самый простой способ навесить обработчик на событие клика -
+          <pre>
+            <code data-trim class="html line-numbers" style="font-size: smaller;max-height: 550px;">
+              <input value="Нажми меня" onclick="alert('Клик!')" type="button">
+            </code>
+          </pre>
+          <input value="Нажми меня" onclick="alert('Клик!')" type="button">
+        </section>
+
+        <section>
+          из JS :
+          <pre>
+            <code data-trim class="html line-numbers" style="font-size: smaller;max-height: 550px;">
+              elem.onclick = function() {
+                alert( 'Клик!' );
+              };
+            </code>
+          </pre>
+        </section>
+        <section>Внутри обработчика события this ссылается на текущий элемент</section>
+      </section>
+
+      <section>
+        недостаток предыдущего способа - невозможность навесить больше одного обработчика, поэтому:
+
+        <ul>
+          <li>addEventListener(event, handler[, phase])</li>
+          <li>removeEventListener(event, handler[, phase])</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>ВОПРОСЫ</h3>
+      </section>
+
+      <section>
+        <h3>ПРАКТИКА</h3>
+        <p>Создать 3 кнопки, по клику на одну из них  меняется ее цвет на случайный.
+          При этом если кликнуть на нее второй раз, ничего не произойдет,
+          обработчик должен "висеть" на другой кнопке. Таким образом, по каждому клику,
+          мы должны перенавешивать событие на следующую кнопку</p>
+
+        <p>** событие перенавешивается на случайную кнопку, но не ту же самую</p>
+      </section>
+
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/js/reveal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/languages/javascript.min.js"></script>
+  <script>
+    Reveal.addEventListener('slidechanged', function (event) {
+      // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      if (event.currentSlide.querySelector('.fragment')) {
+        document.body.classList.add('has-fragments');
+      } else {
+        document.body.classList.remove('has-fragments');
+      }
+    });
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      // Display a presentation progress bar
+      progress: true,
+      // Set default timing of 2 minutes per slide
+      defaultTiming: 120,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Push each slide change to the browser history
+      history: true,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Change the presentation direction to be RTL
+      rtl: false,
+      // Randomizes the order of slides each time the presentation loads
+      shuffle: false,
+      // Turns fragments on and off globally
+      fragments: true,
+      // Flags if the presentation is running in an embedded mode,
+      // i.e. contained within a limited portion of the screen
+      embedded: false,
+      // Flags if we should show a help overlay when the questionmark
+      // key is pressed
+      help: true,
+      // Flags if speaker notes should be visible to all viewers
+      showNotes: true,
+      // Global override for autolaying embedded media (video/audio/iframe)
+      // - null: Media will only autoplay if data-autoplay is present
+      // - true: All media will autoplay, regardless of individual setting
+      // - false: No media will autoplay, regardless of individual setting
+      autoPlayMedia: null,
+      // Number of milliseconds between automatically proceeding to the
+      // next slide, disabled when set to 0, this value can be overwritten
+      // by using a data-autoslide attribute on your slides
+      autoSlide: 0,
+      // Stop auto-sliding after user input
+      autoSlideStoppable: true,
+      // Use this method for navigation when auto-sliding
+      autoSlideMethod: Reveal.navigateNext,
+      // Enable slide navigation via mouse wheel
+      mouseWheel: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Opens links in an iframe preview overlay
+      previewLinks: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition speed
+      transitionSpeed: 'default', // default/fast/slow
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+      // Number of slides away from the current that are visible
+      viewDistance: 3,
+      // Parallax background image
+      parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+      // Parallax background size
+      parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+      // Number of pixels to move the parallax background per slide
+      // - Calculated automatically unless specified
+      // - Set to 0 to disable movement along an axis
+      parallaxBackgroundHorizontal: null,
+      parallaxBackgroundVertical: null,
+      // The display mode that will be used to show slides
+      display: 'block',
+      dependencies: [
+        // Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/lib/js/classList.js',
+          condition: function () {
+            return !document.body.classList;
+          }
+        },
+        // Interpret Markdown in <section> elements
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/marked.js',
+          condition: function () {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/markdown/markdown.js',
+          condition: function () {
+            return !!document.querySelector('[data-markdown]');
+          }
+        },
+        // Syntax highlight for <code> elements
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/highlight/highlight.js',
+          async: true,
+          callback: function () {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        // Zoom in and out with Alt+click
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/zoom-js/zoom.js',
+          async: true
+        },
+        // Speaker notes
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/notes/notes.js',
+          async: true
+        },
+        // MathJax
+        {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/plugin/math/math.js',
+          async: true
+        },
+        {
+          src: 'https://rawgit.com/mikemiles86/reveal-line-numbers/master/line-numbers.js'
+        },
+      ]
+    });
+    Reveal.configure({
+      slideNumber: 'c/t'
+    });
+
+  </script>
+</body>
+
+</html>
