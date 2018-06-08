@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function myForEach(arr, f) {
+           for(var i = 0; i < arr.length; i++){
+               f(arr[i]);
+           }
+        }
+
+        function Example(a) {
+            alert(a);
+        }
+
+        myForEach([1,2,3,4,5,6], Example)
+
+    </script>
+</body>
+</html>
