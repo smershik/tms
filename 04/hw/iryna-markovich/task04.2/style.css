@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: #000000;
+    transition: all 0.5s ease-in-out;
+}
+
+button {
+    padding: 15px 75px;
+    position: relative;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+    text-decoration: none;
+    background: transparent;
+    border: 4px double #00BCD4;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+    cursor: pointer;
+}
+
+button span {
+    color: #00BCD4;
+}
+
+button:hover span {
+    background: #FFEB3B;
+    color: black;
+}
