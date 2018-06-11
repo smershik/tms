@@ -21,22 +21,24 @@ function Task(taskText) {
       const daysInYear = 365;
       const monthInYear = 12;
       const daysInMonth = daysInYear/monthInYear;
+      let beginingOfSentence = "Task was created ";
+      let endOfSentence = " ago";
       const diff = (new Date() - this.timeCreation) / (1000 * secondInMinute); //minutes
 
       if (diff < minutesInHour) {
-        return diff; //minutes
+        return beginingOfSentence + Math.round(diff) + " minutes" + endOfSentence; //minutes
       }
 
       if (diff > minutesInHour && diff < minutesInHour * hoursInDay) {
-        return diff / minutesInHour; //hours
+        return beginingOfSentence + Math.round(diff / minutesInHour) + " hours" + endOfSentence; //hours
       }
 
       if (diff > minutesInHour * hoursInDay && diff < minutesInHour * hoursInDay * daysInMonth) {
-        return diff / (minutesInHour * hoursInDay); //days
+        return beginingOfSentence + Math.round(diff / (minutesInHour * hoursInDay)) + " days" + endOfSentence; //days
       }
 
       if (diff > minutesInHour * hoursInDay * daysInMonth && diff < minutesInHour * hoursInDay * daysInMonth * monthInYear) {
-        return diff / (minutesInHour * hoursInDay * daysInMonth); //month
+        return beginingOfSentence + Math.round(diff / (minutesInHour * hoursInDay * daysInMonth)) + " months" + endOfSentence; //months
       }
 
     }
