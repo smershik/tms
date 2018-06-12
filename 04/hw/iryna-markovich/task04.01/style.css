@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background: radial-gradient(ellipse at top, #f9f9f9, #dedede);
+    min-height: 100vh;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.container {
+    width: 600px;
+    margin: 0 auto;
+}
+.task-box {
+    border-radius: 4px;
+    padding: 15px 25px;
+    margin: 7px 0;
+    color: #000000;
+    border: 1px solid #009688;
+    background-color: #c9eaca;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .3);
+    display: block;
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+}
