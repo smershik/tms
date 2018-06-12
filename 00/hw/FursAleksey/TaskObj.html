@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var TaskObj = (function () {
+            var id = 0;
+            return function Task(text) {
+                this.id = id++;
+                this.textTask = text;
+                this.dateTask = new Date();
+                this.status = "не выполнено";
+                Object.defineProperty(this, "lifeTime", {
+                    get: function () {
+                        var result = new Date().getTime() - this.dateTask.getTime();
+                        var seconds = Math.floor(result / 1000);
+                        var minutes = Math.floor(seconds / 60);
+                        var hours = Math.floor(minutes / 60);
+                        var days = Math.floor(hours / 24);
+                        var mounths = Math.floor(days / 30);
+                        var years = Math.floor(mounths / 12);
+                        if (years != 0) return "Задача существует " + years + "г. и " + (mounths - years * 12) + "м.";
+                        if (mounths != 0) return "Задача существует " + mounths + "м. и " + (days - mounths * 30) + "д.";
+                        if (days != 0) return "Задача существует " + days + "д. и " + (hours - days * 24) + "ч.";
+                        if (hours != 0) return "Задача существует " + hours + "ч. и " + (minutes - hours * 60) + "м.";
+                        if (minutes != 0) return "Задача существует " + minutes + "м. и " + (seconds - minutes * 60) + "с.";
+                        if (seconds != 0) return "Задача существует " + seconds + "c.";
+                    }
+                });
+            };
+        }());
+
+        var a = new TaskObj("Задача 1");
+        var b = new TaskObj("Задача 2");
+        var c = new TaskObj("Задача 3");
+        alert(a.textTask);
+        alert(b.status);
+        alert(c.id);
+        alert(c.lifeTime);
+    </script>
+</body>
+</html>
