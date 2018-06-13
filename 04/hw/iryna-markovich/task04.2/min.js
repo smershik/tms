@@ -1,21 +1,30 @@
-var button = document.getElementsByClassName('button');
-var body = document.body;
-var colors = ['#000000', 'blue', '#ffeb3b', '#3f51b5'];
+let button = document.getElementsByClassName('button');
+let body = document.body;
+
+function generateColorHEX() {
+    const min = 0;
+    const max = 255;
+    let r = Math.floor(min + Math.random() * (max + 1 - min));
+    let g = Math.floor(min + Math.random() * (max + 1 - min));
+    let b = Math.floor(min + Math.random() * (max + 1 - min));
+    let colorHEX = '#' + r.toString(16) + g.toString(16) + b.toString(16);
+    return colorHEX;
+}
 
 for (let i = 0; i < button.length; i++) {
-    button[i].addEventListener("click", changeColor);
+    button[i].addEventListener("click", toggleColorChangeInterval);
 }
 let timer = null;
-function changeColor() {
+function toggleColorChangeInterval() {
 
     if (!timer) {
         timer = setInterval(function () {
-            body.style.background = colors[Math.floor(Math.random() * 3)];
+            body.style.background = generateColorHEX();
         }, 100);
     }
     else {
         clearInterval(timer);
         timer = null;
-        body.style.background = colors[0];
+        body.style.background = '#000000';
     }
 }
