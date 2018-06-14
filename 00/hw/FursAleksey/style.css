@@ -1,0 +1,56 @@
+h3 {
+    text-align: center;
+    color: #000000;
+}
+
+p {
+    text-align: center;
+}
+
+.taskElem {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 300px;
+    border: 1px solid rgb(219, 68, 66);
+    margin: 15px;
+    border-radius: 10%;
+    box-shadow: 0 0 10px rgba(219, 68, 66, 0.7);
+}
+
+.taskElemReady {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 300px;
+    border: 1px solid rgb(50, 219, 32);
+    margin: 15px;
+    border-radius: 10%;
+    box-shadow: 0 0 10px rgba(42, 219, 78, 0.7);
+}
+
+.tasksBox {
+    display: flex;
+}
+
+.status-red {
+    color: red;
+    text-align: center;
+}
+
+.status-green {
+    color: green;
+    text-align: center;
+}
+
+.button-add {
+    width: 100px;
+    height: 30px;
+}
+
+.divForButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+    padding: 10px;
+}
