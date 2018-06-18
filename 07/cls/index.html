@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>TMS JSB - 5 занятие</title>
+  <title>TMS JSB - 7 занятие</title>
   <link rel="stylesheet" href="https://rawgit.com/mikemiles86/reveal-line-numbers/master/line-numbers.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/vs.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.5.0/css/reveal.css">
@@ -14,7 +14,7 @@
   <div class="reveal">
     <div class="slides">
       <section>
-        <h1>Занятие 5</h1>
+        <h1>Занятие 7</h1>
       </section>
 
       <section>
@@ -23,11 +23,10 @@
         </section>
         <section>
           <ul>
-            <li class="fragment">Три типа узлов.</li>
-            <li class="fragment">Навигация. Как посмотреть дочерние элементы. Как посмотреть соседний элемент.</li>
-            <li class="fragment">Как найти элемент по названию класса.</li>
-            <li class="fragment">Что такое атрибут элемента. Что такое свойство элемента. Как с ними работать.</li>
-            <li class="fragment">Как обработать клик.</li>
+            <li class="fragment">Что такое событие</li>
+            <li class="fragment">Объект события. preventDefault, stopPropagation</li>
+            <li class="fragment">Всплытие и перехват</li>
+            <li class="fragment">Делегирование событий</li>
           </ul>
         </section>
       </section>
@@ -38,12 +37,8 @@
         </section>
         <section>
           <ul>
-            <li class="fragment">Добавление и удаление узлов. Клонирование узлов.</li>
-            <li class="fragment">Цикл событий. </li>
-            <li class="fragment">Навигация по DOM. </li>
-            <li class="fragment">Поиск в DOM</li>
-            <li class="fragment">Атрибуты</li>
-            <li class="fragment">Введение в события</li>
+            <li class="fragment">Введение в AJAX.</li>
+            <li class="fragment">Основы XMLHttpRequest.</li>
           </ul>
         </section>
       </section>
@@ -51,18 +46,148 @@
 
       <section>
         <section>
-          <h3>Добавление и удаление узлов. Клонирование узлов.</h3>
+          <h3>AJAX и COMET</h3>
         </section>
 
         <section>
+          AJAX (аббревиатура от «Asynchronous Javascript And Xml») – технология обращения к серверу без перезагрузки страницы.
+        </section>
+
+        <section>
+          <h4>
+            Для чего нужен AJAX
+          </h4>
           <ul>
-            <li class="fragment">Создание элемента (тэга) - <b>document.createElement(tag)</b></li>
-            <li class="fragment">Создание элемента (текст. узел) - <b>document.createTextNode(tag)</b></li>
-            <li class="fragment">Заполнение - <b>elem.innerHTML; elem.innerText;</b></li>
-            <li class="fragment">Добавление - <b>parentElem.appendChild(elem); parentElem.insertBefore(elem, nextSibling)</b></li>
-            <li class="fragment">Клонирование - <b>elem.cloneNode(withChildren: boolean)</b></li>
-            <li class="fragment">Удаление - <b>parentElem.removeChild(elem);  elem.remove()</b></li>
-            <li class="fragment">Замена - <b>parentElem.replaceChild(newElem, elem)</b></li>
+            <li class="fragment">Элементы интерфейса</li>
+            <li class="fragment">Динамическая подгрузка данных</li>
+            <li class="fragment">Живой поиск</li>
+            <li class="fragment">Любой обмен данными с сервером</li>
+          </ul>
+        </section>
+
+        <section>
+          <b>COMET</b> – общий термин, описывающий различные техники получения данных по инициативе сервера.
+          Можно сказать, что AJAX – это «отправил запрос – получил результат», а COMET – это «непрерывный канал, по которому приходят данные».
+        </section>
+
+        <section>
+          <h3>ВОПРОСЫ</h3>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h3>XMLHttpRequest</h3>
+        </section>
+
+        <section>
+          <p>
+            Объект XMLHttpRequest (или, как его кратко называют, «XHR»)
+            дает возможность из JavaScript делать HTTP-запросы к серверу без перезагрузки страницы.
+            Несмотря на слово «XML» в названии, XMLHttpRequest может работать с любыми данными, а не только с XML.
+          </p>
+        </section>
+
+        <section>
+          Шаги использования:
+          <ol>
+            <li class="fragment">Создать объект XMLHttpRequest</li>
+            <li class="fragment">Настроить</li>
+            <li class="fragment">Отослать</li>
+            <li class="fragment">Обработать ответ</li>
+          </ol>
+        </section>
+
+        <section>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              // 1. Создание
+              var xhr = new XMLHttpRequest();
+
+              // 2. Настройка
+              xhr.open(method, url, isAsync);
+
+              // 3. Запрос
+              xhr.send();
+
+              // 4. Обработка (только в случае синхронного таким образом)
+              if (xhr.status < 200 || xhr.status > 203) {
+                // обработка ошибки
+                alert( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
+              } else {
+                // результат
+                alert( xhr.responseText ); // responseText -- текст ответа.
+              }
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <b>Настройка</b> - xhr.open(method, URL, async, user, password)
+          <br>
+          Ограничение безопасности - «Same Origin Policy»
+        </section>
+
+        <section>
+          <b>Остослать</b> - xhr.send([body])
+        </section>
+
+        <section>
+          <b>Отмена</b> - xhr.abort();
+        </section>
+
+        <section>
+          <b>Ответ</b> - status, statusText, responseText
+        </section>
+
+        <section>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              //асинхронная обработка ответа
+              xhr.onreadystatechange = function() {
+                if (xhr.readyState != 4) return;
+
+                button.innerHTML = 'Готово!';
+
+                if (xhr.status != 200) {
+                alert(xhr.status + ': ' + xhr.statusText);
+                } else {
+                alert(xhr.responseText);
+                }
+              }
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          Заголовки - setRequestHeader(name, value), getResponseHeader(name), getAllResponseHeaders()
+        </section>
+
+
+        <section>
+          <p>Максимальную продолжительность асинхронного запроса можно задать свойством timeout:</p>
+          <pre>
+            <code data-trim class="javascript line-numbers" style="font-size: smaller;max-height: 550px;">
+              xhr.timeout = 30000;
+
+              xhr.ontimeout = function() {
+                alert( 'Извините, запрос превысил максимальное время' );
+              }
+            </code>
+          </pre>
+        </section>
+
+        <section>Полный список событий</section>
+
+        <section>
+          <ul>
+            <li class="fragment">onreadystatechange</li>
+            <li class="fragment">ontimeout</li>
+            <li class="fragment">onerror</li>
+            <li class="fragment">onload</li>
+            <li class="fragment">onabort</li>
+            <li class="fragment">onloadstart</li>
+            <li class="fragment">onloadend</li>
           </ul>
         </section>
 
@@ -73,84 +198,11 @@
         <section>
           <h4>Практика</h4>
           <p>
-            1. Создать div с красным фоном, поместить на страницу.
-            Создать меньший div с зеленым фоном, поместить внутрь красного.
-            Удалить красный, зеленый оставить.
-
-            2. Среди отрисованных задач найти одну с конкретным id и удалить.
+            1. регистрируемся на newsapi.org, послыаем запросы, выводим ответы в дом
           </p>
         </section>
       </section>
 
-      <section>
-        <section>
-          <h3>Обработка события</h3>
-        </section>
-
-        <section>
-          <ul>
-            <li class="fragment">Когда происходит событие, оно попадает в очередь.</li>
-            <li class="fragment">Иногда события добавляются в очередь по несколько.</li>
-            <li class="fragment">Обычно события становятся в очередь и обрабатываются в порядке поступления, асинхронно, независимо друг от друга.</li>
-            <li class="fragment">Синхронными являются вложенные события, инициированные из кода. (example: focus())</li>
-            <li class="fragment">Чтобы сделать событие гарантированно асинхронным, используется вызов через setTimeout(func, 0).</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>ВОПРОСЫ</h3>
-        </section>
-
-        <section>
-          <h4>Практика</h4>
-          <p>
-            1. По нажатию на кнопку, сделать асинхронный фокус на текстовое поле
-          </p>
-        </section>
-      </section>
-
-      <section>
-        <section>
-          <h3>Всплытие и перехват</h3>
-        </section>
-
-        <section>
-          <ul>
-            <li class="fragment">При наступлении события обработчики сначала срабатывают на самом вложенном элементе, затем на его родителе,
-              затем выше и так далее, вверх по цепочке вложенности. Это называется всплытие.</li>
-            <li class="fragment">event.target – это исходный элемент, на котором произошло событие, в процессе всплытия он неизменен.</li>
-            <li class="fragment">this, event.currentTarget – это текущий элемент, до которого дошло всплытие, на нём сейчас выполняется обработчик.</li>
-            <li class="fragment">Остановка всплытия - event.stopPropagation()</li>
-            <li class="fragment">Перехват - всплытие наоборот, происходи раньше, но его обработку нужно включить вручную</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>ВОПРОСЫ</h3>
-        </section>
-
-        <section>
-          <h4>Практика</h4>
-          <p>
-            1. Сделать вложенные элементы. Навесить обработчик клика на верхний элемент.
-            Вывести сообщение на стадии перехвата и всплытия
-          </p>
-        </section>
-      </section>
-
-      <section>
-        <section>
-          <h3>Делегирование событий</h3>
-        </section>
-
-        <section>
-          <h4>Практика</h4>
-          <p>
-            1. Реализовать удаление элементов из разментки по кнопке "remove"
-            на них при помощи обработчика на элементе-контейнере
-          </p>
-        </section>
-      </section>
 
     </div>
   </div>
