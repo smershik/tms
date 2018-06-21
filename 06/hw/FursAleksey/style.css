@@ -1,0 +1,19 @@
+#tasks {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.task {
+    padding: 15px;
+    margin: 10px 10px;
+    border: 1px solid red;
+    border-radius: 10px;
+}
+
+.taskReady {
+    padding: 15px;
+    margin: 10px 10px;
+    border: 1px solid green;
+    border-radius: 10px;
+}
