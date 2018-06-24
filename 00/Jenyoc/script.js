@@ -18,18 +18,22 @@
   };
   /*ща будет пздц костыль...*/
   function getGn(event) {
+    newsBlock.innerText='';
     newsId='google-news-ru';
     giveMeThisNews();
   }
   function getLenta(event) {
+    newsBlock.innerText='';
     newsId='lenta';
     giveMeThisNews();
   }
   function getRbc(event) {
+    newsBlock.innerText='';
     newsId='rbc';
     giveMeThisNews();
   }
   function getRt(event) {
+    newsBlock.innerText='';
     newsId='rt';
     giveMeThisNews();
   }
