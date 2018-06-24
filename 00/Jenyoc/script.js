@@ -5,6 +5,7 @@
     input=  document.querySelector('.inp'),
     newsBlock= document.querySelector('.newsBlock'),
     xhrContainer = document.querySelector('.news'),
+    hide=document.querySelector('.hide'),
 
     xhr= new XMLHttpRequest();
   xhr.open('GET',url);
@@ -17,27 +18,30 @@
     renderXhr(xhr);
   };
   /*ща будет пздц костыль...*/
-  function getGn(event) {
+  function hideNews(event){
     newsBlock.innerText='';
+  }
+  function getGn(event) {
+    hideNews();
     newsId='google-news-ru';
-    giveMeThisNews();
+    giveMeTheNews();
   }
   function getLenta(event) {
-    newsBlock.innerText='';
+    hideNews();
     newsId='lenta';
-    giveMeThisNews();
+    giveMeTheNews();
   }
   function getRbc(event) {
-    newsBlock.innerText='';
+    hideNews();
     newsId='rbc';
-    giveMeThisNews();
+    giveMeTheNews();
   }
   function getRt(event) {
-    newsBlock.innerText='';
+    hideNews();
     newsId='rt';
-    giveMeThisNews();
+    giveMeTheNews();
   }
-  function giveMeThisNews() {
+  function giveMeTheNews() {
     var urlNews = 'https://newsapi.org/v2/top-headlines?apiKey=3e04d75c3df0462c91e62abf7c794fb2&sources='+newsId;
     var news=new XMLHttpRequest();
     news.open('GET',urlNews);
@@ -48,7 +52,7 @@
       getNews=JSON.parse(news.response).articles;
       console.log(getNews);
       getNews.forEach(function (item) {
-        block=createElement('div', {
+        block=createElement('section', {
         });
         block.innerHTML='<a href="' + item.url + '">'+
           '<h1>'+item.title+'</h1>'+
@@ -66,6 +70,9 @@
       elem.setAttribute(key, attributes[key]);
     });
     return elem;
+  }
+  function createXhr(event){
+    renderXhr(xhr);
   }
   function renderXhr(xhr){
     var gnID = createElement('button', {innerText: getSources[0].id, className:'gn'}),
@@ -92,4 +99,5 @@
       }
     ).join('');
   }
+  hide.addEventListener('click', hideNews);
 })();

@@ -1,0 +1,30 @@
+body {
+  background-image: url(https://imba4.ru/uploads/pepe.png);
+}
+.hide{
+  font-size: 10px;
+  padding:1px;
+  color:darkblue;
+}
+section {
+  background: white;
+  border: darkslategray 1px solid;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: impact;
+  color:darkgreen;
+}
+h1{
+  font-family: arial;
+  color: #37719c;
+  text-decoration: underline darkgreen;
+}
+button{
+  font-family: Ebrima;
+  border: 2px solid darkblue;
+  padding: 5px 20px;
+  font-weight:bold;
+  color: darkred;
+  border-radius: 5px;
+}
