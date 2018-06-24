@@ -71,9 +71,6 @@
     });
     return elem;
   }
-  function createXhr(event){
-    renderXhr(xhr);
-  }
   function renderXhr(xhr){
     var gnID = createElement('button', {innerText: getSources[0].id, className:'gn'}),
       lentaID = createElement('button', {innerText: getSources[1].id, className:'lenta'}),
