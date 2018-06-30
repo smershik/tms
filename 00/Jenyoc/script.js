@@ -1,20 +1,40 @@
 (function () {
   var sourceButton, sources,
 
-      newsBlock = document.querySelector('.newsBlock'),
-      container = document.querySelector('.news'),
-      clear = document.querySelector('.clear'),
+    newsBlock = document.querySelector('.newsBlock'),
+    container = document.querySelector('.news'),
+    clearBtn = document.querySelector('.clearBtn'),
 
-      url = 'https://newsapi.org/v2/sources?apiKey=3e04d75c3df0462c91e62abf7c794fb2&language=ru',
-      xhr = new XMLHttpRequest();
+    url = 'https://newsapi.org/v2/sources?apiKey=3e04d75c3df0462c91e62abf7c794fb2&language=ru',
+    newsSources = new XMLHttpRequest();
 
-  xhr.open('GET', url);
-  xhr.send();
+  newsSources.open('GET', url);
+  newsSources.send();
 
-  xhr.onload = function () {
-    sources = JSON.parse(xhr.response).sources;
+  newsSources.onload = function () {
+    sources = JSON.parse(newsSources.response).sources;
     renderSources();
   };
+
+  function createElement(elemName, options, attributes) {
+    attributes = attributes || {};
+    var elem = document.createElement(elemName);
+    Object.assign(elem, options);
+    Object.keys(attributes).forEach(function (key) {
+      elem.setAttribute(key, attributes[key]);
+    });
+    return elem;
+  }
+
+  function renderSources() {
+    var i = 0;
+    sources.forEach(function (item) {
+      sourceButton = createElement('button', {innerText: sources[i].id, className: 'button' + i});
+      i++;
+      container.appendChild(sourceButton);
+      container.addEventListener('click', getNews);
+    });
+  }
 
   function clearNews(event) {
     newsBlock.innerText = '';
@@ -44,25 +64,5 @@
     });
   }
 
-  function createElement(elemName, options, attributes) {
-    attributes = attributes || {};
-    var elem = document.createElement(elemName);
-    Object.assign(elem, options);
-    Object.keys(attributes).forEach(function (key) {
-      elem.setAttribute(key, attributes[key]);
-    });
-    return elem;
-  }
-
-  function renderSources() {
-    var i = 0;
-    sources.forEach(function (item) {
-      sourceButton = createElement('button', {innerText: sources[i].id, className: 'button' + i});
-      i++;
-      container.appendChild(sourceButton);
-      container.addEventListener('click', getNews);
-    });
-  }
-
-  clear.addEventListener('click', clearNews);
+  clearBtn.addEventListener('click', clearNews);
 })();
