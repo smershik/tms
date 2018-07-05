@@ -27,10 +27,8 @@
   }
 
   function renderSources() {
-    var i = 0;
     sources.forEach(function (item) {
-      sourceButton = createElement('button', {innerText: sources[i].id, className: 'button' + i});
-      i++;
+      sourceButton = createElement('button', {innerText: item.id, className: 'button' + item});
       container.appendChild(sourceButton);
       container.addEventListener('click', getNews);
     });
