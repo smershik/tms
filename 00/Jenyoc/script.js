@@ -34,7 +34,7 @@
     });
   }
 
-  function clearNews(event) {
+  function clearNews() {
     newsBlock.innerText = '';
   }
 
