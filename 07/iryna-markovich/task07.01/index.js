@@ -36,7 +36,8 @@
     function renderButtons(sources) {
         sources.forEach(function (sources) {
             let buttonElem = ce('BUTTON',
-                { className: 'nav__button' }
+                { className: 'nav__button' },
+                { 'data-role': 'button' }
             );
             buttonElem.innerText = sources.id;
             nav.appendChild(buttonElem);
@@ -48,7 +49,7 @@
     
     function showNews(event) {
         let target = event.target;
-        if (target.tagName != 'BUTTON') return; 
+        if (target.getAttribute('data-role') != 'button') return; 
 
         nav.addEventListener('click', clearNews);
 
@@ -64,7 +65,6 @@
     }
 
     function renderNews() {
-        console.log(articles);
         let containerInner = ce('DIV',
             { className: 'container-inner' },
         );
