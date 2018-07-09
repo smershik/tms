@@ -17,3 +17,9 @@
 [git ссылки и инструкции](https://github.com/smershik/tms-jsb/tree/master/git-starter) 
 
 ---
+
+--- 
+
+### Курсовой проект
+
+[Вариант 1](https://github.com/smershik/tms-jsb/tree/master/course_project/01) [Вариант 2](https://github.com/smershik/tms-jsb/tree/master/course_project/02)
