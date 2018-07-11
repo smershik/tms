@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+			
+			<script>
+	var forEach = function(arr, callback) {
+  var i, length = arr.length;
+  for (i = 0; i < length; i++) {
+    callback(arr[i], i);
+  }
+};
+	forEach([1, 2, 3], function(num, i) {
+  alert( num + ', index: ' + i )
+});
+	</script>
+			
+</body>
+</html>
