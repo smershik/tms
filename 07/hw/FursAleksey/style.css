@@ -1,0 +1,29 @@
+h1 {
+    font-size: 18px;
+}
+
+span {
+    font-size: 12px;
+}
+
+button {
+    width: 100px;
+    height: 50px;
+
+}
+
+#buttons {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+#news {
+    display: flex;
+    flex-direction: column;
+}
+
+.divForNews {
+    width: 50%;
+    border-bottom: 1px solid black;
+}
