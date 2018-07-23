@@ -1,0 +1,39 @@
+body{
+  font-family: Ebrima;
+}
+
+header{
+  display: flex;
+  flex-direction: row;
+}
+
+.listBox{
+  display: flex;
+  flex-direction: column;
+}
+
+.cityList{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+
+main{
+  display: flex;
+  width: 100%;
+}
+.weatherBox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+div{
+  margin: 10px;
+  padding: 10px;
+  border: solid 1px black;
+  border-radius: 10px;
+}
+p{
+  text-align: center;
+}
