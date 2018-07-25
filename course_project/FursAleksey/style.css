@@ -1,0 +1,75 @@
+body {
+    height: 100vh;
+    max-width: 100%;
+    padding: 2em;
+    margin: 0 auto;
+    color: #161616;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    background-color: currentColor;
+    padding: 0;
+}
+
+h2 {
+    color: white;
+}
+
+select {
+    background-color: #161616;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    width: 150px;
+    height: 50px;
+    text-align: center;
+}
+
+a {
+    width: 150px;
+    height: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 15px;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #161616;
+}
+
+.days {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 70%;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #161616;
+    width: 220px;
+    height: 350px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 0, 0, 0.53);
+
+}
+
+.temperature {
+    color: white;
+    font-size: 18px;
+}
+
+
+
