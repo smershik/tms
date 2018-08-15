@@ -1,17 +1,41 @@
 window.onload = function () {
   var changeCityButton = document.querySelector('.changeCityButton'),
     weatherBox = document.querySelector('.weatherBox'),
-    cityList = document.querySelector('.cityList'),
     arrowBackBox = document.querySelector('.back'),
     arrowForwardBox = document.querySelector('.forward'),
     timelistBox = document.querySelector('.timeListBox'),
-    sources,
+    newPageButtonBox = document.querySelector('.newPageButtonBox'),
+    main = document.querySelector('.main'),
+    pickerBox = document.querySelector('.pickerBox'),
+    header = document.querySelector('.header'),
+    cityList = document.querySelector('.cityList'),
+    flexCol = document.querySelector('.flexCol'),
+    sources, check = 0,
     cities = ['Minsk', 'Navapolatsk', 'Hrodna', 'Brest'],
-    targetCity, currentCity, citySpan, timeBlock, itemId,
+    targetCity, citySpan, timeBlock, dayBlock, allDaysBox,
     weatherHours = [0, 1, 2, 3, 4, 5, 6, 7],
     weatherDate = 0, weatherRequest = new XMLHttpRequest();
 
-  cityList.addEventListener('change', showWeather);
+  function addCitiesToList() {
+    cities.forEach(function (city) {
+        citySpan = createElement('option', {text: city, value: city});
+        cityList.add(citySpan);
+      }
+    );
+  }
+
+  addCitiesToList();
+
+  function setEvent() {
+    if (check === 0) {
+      cityList.addEventListener('change', showWeather);
+    }
+    else {
+      cityList.addEventListener('change', newPageOpen);
+    }
+  }
+
+  setEvent();
 
   var url = 'https:/api.openweathermap.org/data/2.5/forecast?q=Minsk,by&APPID=05b4798836b87272780eca72486a4dab';
 
@@ -38,12 +62,46 @@ window.onload = function () {
         weatherDate++;
       }
     );
+    newPageButtonBox.innerHTML = '<button class="newPageButton">Go to full forecast</button>';
+    var newPageButton = document.querySelector('.newPageButton');
+    newPageButton.addEventListener('click', newPageOpen);
     weatherDate = 0;
     showWeather();
   };
 
+  function showDate() {
+    return parseInt(convertUTCDateToLocalDate(new Date(sources[weatherDate].dt_txt)).getDate());
+  }
+
+  function showPlusOrMinus() {
+
+    if (sources[weatherDate].main.temp < 273) {
+      return '-';
+    }
+
+    else if (sources[weatherDate].main.temp > 273) {
+      return '+';
+    }
+
+    else {
+      return '';
+    }
+  }
+
+  function showWeatherIcon() {
+    if (sources[weatherDate].weather[0].main = 'Clouds') {
+      return '<img src="https://png.icons8.com/metro/27/EEE8AA/clouds.png">';
+    }
+    else if (sources[weatherDate].weather[0].main = 'Rain') {
+      return '<img src="https://png.icons8.com/ios/27/EEE8AA/rain.png">'
+    }
+    else {
+      return '<img src="https://png.icons8.com/ios/27/EEE8AA/sun-filled.png">';
+    }
+  }
+
   function showLoadingAnimation() {
-    weatherBox.innerHTML = '<div class="loader">' + '</div>' + '<p class="loaderText">' + 'Loading' + '</p>';
+    weatherBox.innerHTML = '<div class="loader"></div><p class="loaderText">Loading</p>';
   }
 
   function showArrows() {
@@ -76,25 +134,26 @@ window.onload = function () {
 
   function showWeather(event) {
     weatherBox.innerHTML = '';
-    timeBlock.classList.remove('btnBorder');
-    if (weatherDate >= 0 && weatherDate < 8) {
-      timeBlock = document.querySelector('.btn' + weatherDate);
+    if (check === 0) {
+      timeBlock.classList.remove('btnBorder');
+      if (weatherDate >= 0 && weatherDate < 8) {
+        timeBlock = document.querySelector('.btn' + weatherDate);
+      }
+      else if (weatherDate >= 8 && weatherDate < 16) {
+        timeBlock = document.querySelector('.btn' + parseInt(weatherDate - 8));
+      }
+      else if (weatherDate >= 16 && weatherDate < 24) {
+        timeBlock = document.querySelector('.btn' + parseInt(weatherDate - 16));
+      }
+      else if (weatherDate >= 24 && weatherDate < 32) {
+        timeBlock = document.querySelector('.btn' + parseInt(weatherDate - 24));
+      }
+      else {
+        timeBlock = document.querySelector('.btn' + parseInt(weatherDate - 32));
+      }
+      timeBlock.classList.add('btnBorder');
     }
-    else if (weatherDate >= 8 && weatherDate < 16) {
-      timeBlock = document.querySelector('.btn' + parseInt(weatherDate - 8));
-    }
-    else if (weatherDate >= 16 && weatherDate < 24) {
-      timeBlock = document.querySelector('.btn' + parseInt(weatherDate - 16));
-    }
-    else if (weatherDate >= 24 && weatherDate < 32) {
-      timeBlock = document.querySelector('.btn' + parseInt(weatherDate - 24));
-    }
-    else {
-      timeBlock = document.querySelector('.btn' + parseInt(weatherDate - 32));
-    }
-    timeBlock.classList.add('btnBorder');
-
-    if (event === undefined && targetCity == undefined) {
+    if (event === undefined && targetCity === undefined) {
       targetCity = 'Minsk';
     }
 
@@ -119,45 +178,11 @@ window.onload = function () {
     weatherRequest.onload = function () {
       weatherBox.innerHTML = '';
       sources = JSON.parse(weatherRequest.response).list;
-      currentCity = JSON.parse(weatherRequest.response).city;
       renderWeather();
     };
   }
 
   function renderWeather() {
-
-    function showPlusOrMinus() {
-
-      if (sources[weatherDate].main.temp < 273) {
-        return '-';
-      }
-
-      else if (sources[weatherDate].main.temp > 273) {
-        return '+';
-      }
-
-      else {
-        return '';
-      }
-    }
-
-    function showWeatherIcon() {
-      if (sources[weatherDate].weather[0].main = 'Clouds') {
-        return '<img src="https://png.icons8.com/metro/27/EEE8AA/clouds.png">';
-      }
-      else if (sources[weatherDate].weather[0].main = 'Rain') {
-        return '<img src="https://png.icons8.com/ios/27/EEE8AA/rain.png">'
-      }
-      else {
-        return '<img src="https://png.icons8.com/ios/27/EEE8AA/sun-filled.png">';
-      }
-    }
-
-    function showDate() {
-
-      return parseInt(convertUTCDateToLocalDate(new Date(sources[weatherDate].dt_txt)).getDate());
-    }
-
     var weatherBlock = createElement('div', {className: 'weatherBlock'});
     weatherBlock.innerHTML =
       '<h1 class="head1">' + cityList.value + '</h1>' +
@@ -172,12 +197,6 @@ window.onload = function () {
     weatherBox.appendChild(weatherBlock);
     showArrows();
   }
-
-  cities.forEach(function (city) {
-      citySpan = createElement('option', {text: city, value: city});
-      cityList.add(citySpan);
-    }
-  );
 
   function createElement(elemName, options, attributes) {
     attributes = attributes || {};
@@ -211,6 +230,10 @@ window.onload = function () {
       weatherDate = 0;
     }
     showWeather();
+  }
+
+  function reload() {
+    window.location.reload();
   }
 
   function setWeatherDate() {
@@ -279,12 +302,44 @@ window.onload = function () {
     }
   }
 
-  const picker = datepicker('.datepicker', {
-    dateSelected: new Date,
-    position: 'br',
-    onSelect: setWeatherDate,
-    startDay: 1
-  });
+  function newPageOpen(event) {
+    targetCity = cityList.value;
+    var url = 'https:/api.openweathermap.org/data/2.5/forecast?q=' + targetCity + ',by&APPID=05b4798836b87272780eca72486a4dab';
+    weatherRequest.open('GET', url);
+    weatherRequest.send();
+
+    showLoadingAnimation();
+
+    weatherRequest.onload = function () {
+      document.body.setAttribute('class', 'cityBg');
+      timelistBox.innerHTML = '';
+      header.removeChild(pickerBox);
+      newPageButtonBox.innerHTML = '<button class="homeButton">HOME</button>';
+      var homeButton = document.querySelector('.homeButton');
+      homeButton.addEventListener('click', reload);
+      sources = JSON.parse(weatherRequest.response).list;
+      check = 1;
+      setEvent();
+      flexCol.innerHTML = '<section class="allDaysBox"></section>';
+      var allDays = [0, 8, 16, 24, 32];
+      allDaysBox = document.querySelector('.allDaysBox');
+      allDays.forEach(function (day) {
+        dayBlock = createElement('div', {className: 'dayBlock'});
+        dayBlock.innerHTML =
+          '<h1 class="head1">' + cityList.value + '</h1>' +
+          '<h2 class="head2">' +
+          parseInt(convertUTCDateToLocalDate(new Date(sources[day].dt_txt)).getDate()) + '.' +
+          parseInt(convertUTCDateToLocalDate(new Date(sources[day].dt_txt)).getMonth() + 1) + '.' +
+          convertUTCDateToLocalDate(new Date(sources[day].dt_txt)).getFullYear() +
+          '</h2>' +
+          '<p class="string">' + showPlusOrMinus() + parseInt(sources[day].main.temp - 273) + '°</p>' +
+          '<p class="string">' + 'wind speed: ' + sources[day].wind.speed + '</p>' +
+          showWeatherIcon() + '<p class="string">' + sources[day].weather[0].main + '</p>';
+        allDaysBox.appendChild(dayBlock);
+      });
+    };
+    picker=undefined;
+  }
 
   var day = new Date(),
     hour = day.getHours();
@@ -298,5 +353,10 @@ window.onload = function () {
   } else {
     document.body.setAttribute('class', 'bgNight');
   }
-
+    var picker = datepicker('.datepicker', {
+      dateSelected: new Date,
+      position: 'br',
+      onSelect: setWeatherDate,
+      startDay: 1
+    })
 };

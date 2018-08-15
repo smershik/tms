@@ -10,6 +10,24 @@ body{
   color: palegoldenrod;
   background-repeat: no-repeat;
   background-position: top;
+  overflow: hidden;
+}
+
+*{
+  outline: none !important;
+}
+
+.newPageButton{
+  width: 125px; height: 25px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border: 0;
+  color: white;
+  background: linear-gradient(to top, rgba(255, 249, 180, 0.25), rgba(255, 245, 117, 0.15));
+}
+
+.newPageButton:hover {
+  cursor: pointer;
 }
 
 .flexCol{
@@ -74,6 +92,44 @@ body{
   background-repeat: no-repeat;
 }
 
+.cityBg{
+  background-image: url("src/city.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+}
+
+.allDaysBox{
+  color: black;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.dayBlock{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.49);
+  color: white;
+  width: 15%;
+  border-radius: 10px;
+}
+
+.newPageButtonBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1% 3%;
+}
+
+.homeButton{
+  background-color: white;
+  font-family: Ebrima;
+  width: 125px;
+}
+
 html{
   padding: 0;
   margin: 0;
@@ -102,6 +158,7 @@ html{
   display: none;
 }
 .cityList{
+  width: 125px;
   margin: 1% 3%;
 }
 
@@ -113,6 +170,7 @@ html{
   margin: 0 auto;
   align-items: center;
   height: 400px;
+  justify-content: center;
 }
 .weatherBox{
   display: flex;
@@ -135,8 +193,13 @@ html{
 .string{
   text-align: center;
 }
+
+.pickerBox{
+  padding: 1% 3%;
+}
+
 .datepicker{
-  margin: 1% 3%;
+  width: 125px;
 }
 .errorBox{
   display: flex;
